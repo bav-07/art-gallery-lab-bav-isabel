@@ -11,16 +11,19 @@ public class CustomerTest {
     Customer customer;
     Gallery gallery;
     Artwork desiredArtwork;
+    Artwork artwork1;
+    Artwork artwork2;
+    Artwork artwork3;
 
     @BeforeEach
     public void setUp(){
         customer = new Customer("Montgomery", 3000000);
         Artist artist1 = new Artist("Vincent");
-        Artwork artwork1 = new Artwork("Starry night", artist1, 999999, "NFT1");
+        artwork1 = new Artwork("Starry night", artist1, 999999, "NFT1");
         Artist artist2 = new Artist("Monet");
-        Artwork artwork2 = new Artwork("The Water Lilies", artist2, 999999, "NFT2");
+        artwork2 = new Artwork("The Water Lilies", artist2, 999999, "NFT2");
         Artist artist3 = new Artist("Picasso");
-        Artwork artwork3 = new Artwork("Self-portrait", artist3, 999999, "NFT3");
+        artwork3 = new Artwork("Self-portrait", artist3, 999999, "NFT3");
         ArrayList<Artwork> stock = new ArrayList<>();
         stock.add(artwork1);
         stock.add(artwork2);
@@ -38,6 +41,44 @@ public class CustomerTest {
         assertThat(customer.getWallet()).isEqualTo(2000001);
         assertThat(gallery.getStock().size()).isEqualTo(2);
         assertThat(customer.getArtCollection().size()).isEqualTo(1);
+    }
+
+    @Test
+    public void hasName(){
+        assertThat(customer.getName()).isEqualTo("Montgomery");
+    }
+
+    @Test
+    public void canSetName(){
+        customer.setName("Gunther");
+        assertThat(customer.getName()).isEqualTo("Gunther");
+    }
+
+    @Test
+    public void hasWallet(){
+        assertThat(customer.getWallet()).isEqualTo(3000000);
+    }
+
+    @Test
+    public void canSetWallet(){
+        customer.setWallet(0);
+        assertThat(customer.getWallet()).isEqualTo(0);
+    }
+
+    @Test
+    public void hasArtCollection(){
+        assertThat(customer.getArtCollection()).isEmpty();
+        customer.buyArtwork(gallery,desiredArtwork);
+        assertThat(customer.getArtCollection().get(0)).isEqualTo(desiredArtwork);
+    }
+
+    @Test
+    public void canSetArtCollection(){
+        ArrayList<Artwork> newCollection = new ArrayList<Artwork>();
+        newCollection.add(artwork1);
+        newCollection.add(artwork2);
+        customer.setArtCollection(newCollection);
+        assertThat(customer.getArtCollection().size()).isEqualTo(2);
     }
 
 }

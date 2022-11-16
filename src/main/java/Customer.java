@@ -29,10 +29,8 @@ public class Customer {
 
         for (int i = 0; i < stock.size(); i++) {
             if (desiredArtwork.getTitle() == stock.get(i).getTitle()){
-
                 canBuy = true;
                 index = i;
-
             }
         }
 
